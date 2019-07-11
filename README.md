@@ -4,7 +4,7 @@
 and
 [emoji-list.html](https://unicode.org/emoji/charts/emoji-list.html)
 
-### Example of emoji metada:
+### Example of emoji metadata:
 ```json
 {
   "category": "Smileys & Emotion",
@@ -42,10 +42,10 @@ and
 
 ### JSON files types:
 
-`emoji-by-{field}.json` - emoji metadata indexed by {field}, formatted json
-`emoji-by-{field}.min.json` - emojies metadata indexed by {field}, minified json
-`emoji-by-{field}.index.json` - emoji unicode string indexed by {field}, formatted json
-`emoji-by-{field}.min.json` - emojies unicode string indexed by {field}, minified json
+- `emoji-by-{field}.json` - emoji metadata indexed by {field}, formatted json
+- `emoji-by-{field}.min.json` - emojies metadata indexed by {field}, minified json
+- `emoji-by-{field}.index.json` - emoji unicode string indexed by {field}, formatted json
+- `emoji-by-{field}.min.json` - emojies unicode string indexed by {field}, minified json
 
 Where {field}:
 - text
