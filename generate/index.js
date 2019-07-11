@@ -149,88 +149,127 @@ rows = null;
 
 console.log('write JSON files');
 
-fs.writeFileSync('../emoji-by-text.json', JSON.stringify(byText, null, 2));
-
-fs.writeFileSync('../emoji-by-code.json', JSON.stringify(byCode, null, 2));
 fs.writeFileSync(
-  '../emoji-by-code.index.json',
+  __dirname + '/../emoji-by-text.json',
+  JSON.stringify(byText, null, 2)
+);
+
+fs.writeFileSync(
+  __dirname + '/../emoji-by-code.json',
+  JSON.stringify(byCode, null, 2)
+);
+fs.writeFileSync(
+  __dirname + '/../emoji-by-code.index.json',
   JSON.stringify(_.mapValues(byCode, 'text'), null, 2)
 );
-fs.writeFileSync('../emoji-by-name.json', JSON.stringify(byName, null, 2));
 fs.writeFileSync(
-  '../emoji-by-name.index.json',
+  __dirname + '/../emoji-by-name.json',
+  JSON.stringify(byName, null, 2)
+);
+fs.writeFileSync(
+  __dirname + '/../emoji-by-name.index.json',
   JSON.stringify(_.mapValues(byName, 'text'), null, 2)
 );
 fs.writeFileSync(
-  '../emoji-by-category.json',
+  __dirname + '/../emoji-by-category.json',
   JSON.stringify(byCategory, null, 2)
 );
 fs.writeFileSync(
-  '../emoji-by-category.index.json',
+  __dirname + '/../emoji-by-category.index.json',
   JSON.stringify(_.mapValues(byCategory, (l) => _.map(l, 'text')), null, 2)
 );
 fs.writeFileSync(
-  '../emoji-by-section.json',
+  __dirname + '/../emoji-by-section.json',
   JSON.stringify(bySection, null, 2)
 );
 fs.writeFileSync(
-  '../emoji-by-section.index.json',
+  __dirname + '/../emoji-by-section.index.json',
   JSON.stringify(_.mapValues(bySection, (l) => _.map(l, 'text')), null, 2)
 );
-fs.writeFileSync('../emoji-by-vendor.json', JSON.stringify(byVendor, null, 2));
 fs.writeFileSync(
-  '../emoji-by-vendor.index.json',
+  __dirname + '/../emoji-by-vendor.json',
+  JSON.stringify(byVendor, null, 2)
+);
+fs.writeFileSync(
+  __dirname + '/../emoji-by-vendor.index.json',
   JSON.stringify(_.mapValues(byVendor, (l) => _.map(l, 'text')), null, 2)
 );
-fs.writeFileSync('../emoji-by-tag.json', JSON.stringify(byTag, null, 2));
 fs.writeFileSync(
-  '../emoji-by-tag.index.json',
+  __dirname + '/../emoji-by-tag.json',
+  JSON.stringify(byTag, null, 2)
+);
+fs.writeFileSync(
+  __dirname + '/../emoji-by-tag.index.json',
   JSON.stringify(_.mapValues(byTag, (l) => _.map(l, 'text')), null, 2)
 );
 fs.writeFileSync(
-  '../emoji-by-keyword.json',
+  __dirname + '/../emoji-by-keyword.json',
   JSON.stringify(byKeyword, null, 2)
 );
 fs.writeFileSync(
-  '../emoji-by-keyword.index.json',
+  __dirname + '/../emoji-by-keyword.index.json',
   JSON.stringify(_.mapValues(byKeyword, (l) => _.map(l, 'text')), null, 2)
 );
 
-fs.writeFileSync('../emoji-by-text.min.json', JSON.stringify(byText));
-
-fs.writeFileSync('../emoji-by-code.min.json', JSON.stringify(byCode));
 fs.writeFileSync(
-  '../emoji-by-code.index.min.json',
+  __dirname + '/../emoji-by-text.min.json',
+  JSON.stringify(byText)
+);
+
+fs.writeFileSync(
+  __dirname + '/../emoji-by-code.min.json',
+  JSON.stringify(byCode)
+);
+fs.writeFileSync(
+  __dirname + '/../emoji-by-code.index.min.json',
   JSON.stringify(_.mapValues(byCode, 'text'))
 );
-fs.writeFileSync('../emoji-by-name.min.json', JSON.stringify(byName));
 fs.writeFileSync(
-  '../emoji-by-name.index.min.json',
+  __dirname + '/../emoji-by-name.min.json',
+  JSON.stringify(byName)
+);
+fs.writeFileSync(
+  __dirname + '/../emoji-by-name.index.min.json',
   JSON.stringify(_.mapValues(byName, 'text'))
 );
-fs.writeFileSync('../emoji-by-category.min.json', JSON.stringify(byCategory));
 fs.writeFileSync(
-  '../emoji-by-category.index.min.json',
+  __dirname + '/../emoji-by-category.min.json',
+  JSON.stringify(byCategory)
+);
+fs.writeFileSync(
+  __dirname + '/../emoji-by-category.index.min.json',
   JSON.stringify(_.mapValues(byCategory, (l) => _.map(l, 'text')))
 );
-fs.writeFileSync('../emoji-by-section.min.json', JSON.stringify(bySection));
 fs.writeFileSync(
-  '../emoji-by-section.index.min.json',
+  __dirname + '/../emoji-by-section.min.json',
+  JSON.stringify(bySection)
+);
+fs.writeFileSync(
+  __dirname + '/../emoji-by-section.index.min.json',
   JSON.stringify(_.mapValues(bySection, (l) => _.map(l, 'text')))
 );
-fs.writeFileSync('../emoji-by-vendor.min.json', JSON.stringify(byVendor));
 fs.writeFileSync(
-  '../emoji-by-vendor.index.min.json',
+  __dirname + '/../emoji-by-vendor.min.json',
+  JSON.stringify(byVendor)
+);
+fs.writeFileSync(
+  __dirname + '/../emoji-by-vendor.index.min.json',
   JSON.stringify(_.mapValues(byVendor, (l) => _.map(l, 'text')))
 );
-fs.writeFileSync('../emoji-by-tag.min.json', JSON.stringify(byTag));
 fs.writeFileSync(
-  '../emoji-by-tag.index.min.json',
+  __dirname + '/../emoji-by-tag.min.json',
+  JSON.stringify(byTag)
+);
+fs.writeFileSync(
+  __dirname + '/../emoji-by-tag.index.min.json',
   JSON.stringify(_.mapValues(byTag, (l) => _.map(l, 'text')))
 );
-fs.writeFileSync('../emoji-by-keyword.min.json', JSON.stringify(byKeyword));
 fs.writeFileSync(
-  '../emoji-by-keyword.index.min.json',
+  __dirname + '/../emoji-by-keyword.min.json',
+  JSON.stringify(byKeyword)
+);
+fs.writeFileSync(
+  __dirname + '/../emoji-by-keyword.index.min.json',
   JSON.stringify(_.mapValues(byKeyword, (l) => _.map(l, 'text')))
 );
 
