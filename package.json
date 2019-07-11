@@ -1,6 +1,6 @@
 {
   "name": "unicode-emoji-meta",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "😏 Emoji JSON metadata parsed from unicode.org and indexed by name, category, sub-section, tag, keyword, vendor",
   "main": "emoji-by-text.min.json",
   "scripts": {
