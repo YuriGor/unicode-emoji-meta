@@ -1,5 +1,5 @@
 {
-  "name": "emoji-json",
+  "name": "unicode-emoji-meta",
   "version": "1.0.0",
   "description": "😏 Emoji JSON metadata parsed from unicode.org and indexed by name, category, sub-section, tag, keyword, vendor",
   "main": "emoji-by-text.min.json",
@@ -19,12 +19,12 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/YuriGor/emoji-json.git"
+    "url": "git+https://github.com/YuriGor/unicode-emoji-meta.git"
   },
   "bugs": {
-    "url": "https://github.com/YuriGor/emoji-json/issues"
+    "url": "https://github.com/YuriGor/unicode-emoji-meta/issues"
   },
-  "homepage": "https://github.com/YuriGor/emoji-json",
+  "homepage": "https://github.com/YuriGor/unicode-emoji-meta",
   "author": "YuriGor",
   "license": "MIT",
   "devDependencies": {
