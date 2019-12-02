@@ -4,7 +4,134 @@ const fs = require('fs');
 const _ = require('lodash');
 const { JSDOM } = require('jsdom');
 
-const ignoreKeywords = ['on', 'the', 'of', 'in', '<span', 'a', 'over', 'with'];
+const ignoreKeywords = [
+  'on',
+  'the',
+  'of',
+  'in',
+  '<span',
+  'a',
+  'over',
+  'with',
+  'from',
+];
+
+function cleanTag(tag) {
+  tag = tag.toLowerCase();
+  if (_.startsWith(tag, 'class=')) {
+    tag = tag.split(/></)[1];
+  }
+  tag = _.trim(tag, '\'"“”()!');
+  tag = tag.replace('<span', '');
+  tag = tag.replace('</span>', '');
+  tag = tag.replace('&amp;', '');
+  tag = tag.replace('#', '');
+  tag = tag.replace('(', '');
+  tag = tag.replace(')', '');
+  return tag;
+}
+
+const aliasKeywords = [
+  ['grinning', 'grin'],
+  ['lips', 'kiss', 'kissing', 'heart', 'hearts', 'love'],
+  ['hug', 'hugging'],
+  ['clap', 'clapping'],
+  ['clap', 'clapping'],
+  ['flex', 'flexed'],
+  ['africa', 'african', 'afro'],
+  ['aeroplane', 'airplane'],
+  ['abc', 'abcd', 'alphabet'],
+  ['anger', 'angry'],
+  ['art', 'artist', 'arts'],
+  ['athletic', 'athletics'],
+  ['auto', 'automobile'],
+  ['bag', 'bags'],
+  ['bath', 'bathing', 'bathtub'],
+  ['berries', 'berry'],
+  ['bicycle', 'bicycles', 'bicyclist', 'bike', 'biking', 'cyclist'],
+  ['biologist', 'biology'],
+  ['blond', 'blonde'],
+  ['blow', 'blowing'],
+  ['book', 'books'],
+  ['bright', 'brightness'],
+  ['bust', 'busts'],
+  ['candle', 'candlestick'],
+  ['celebrate', 'celebration', 'party', 'partying'],
+  ['chemist', 'chemistry'],
+  ['chick', 'chicken', 'rooster'],
+  ['child', 'young', 'baby'],
+  ['clothes', 'clothing'],
+  ['coder', 'computer', 'developer', 'software'],
+  ['cook', 'cooking'],
+  ['cutting', 'haircut'],
+  ['dance', 'dancer', 'dancing'],
+  ['drink', 'drinking'],
+  ['exploding', 'explosive'],
+  ['facepalm', 'facepalming'],
+  [
+    'tractor',
+    'farmer',
+    'farming',
+    'cow',
+    'bull',
+    'buffalo',
+    'pig',
+    'sheep',
+    'goat',
+    'turkey',
+    'chicken',
+    'rooster',
+    'chick',
+    'fruit',
+    'vegetable',
+  ],
+  [
+    'hushed',
+    'stunned',
+    'surprised',
+    'astonished',
+    'shocked',
+    'dazed',
+    'anguished',
+  ],
+  ['arrival', 'arrivals', 'arriving'],
+  ['arrow', 'arrows'],
+  ['fear', 'fearful'],
+  ['extinguish', 'extinguisher', 'fire', 'firefighter', 'firetruck', 'flame'],
+  ['eye', 'eyes'],
+  [
+    '0',
+    '00',
+    '1',
+    '2',
+    '3',
+    '4',
+    '5',
+    '6',
+    '7',
+    '8',
+    '9',
+    '10',
+    '11',
+    '12',
+    '18',
+    '30',
+    '100',
+    '1234',
+    '1st',
+    '2nd',
+    '3rd',
+    'numbers',
+  ],
+  ['finger', 'fingers'],
+  ['frown', 'frowning'],
+  ['gesture', 'gesturing'],
+  ['hand', 'hands'],
+  ['hear', 'hearing', 'ear'],
+  ['juggle', 'juggling'],
+  ['laugh', 'laughing'],
+  ['paintbrush', 'painting'],
+];
 
 // https://unicode.org/emoji/charts/full-emoji-list.html
 console.log('load and parse full-emoji-list.html', __dirname);
@@ -109,11 +236,13 @@ for (let row of rows) {
     .split(' | ')
     .map(cleanTag)
     .filter(filterTag);
-  let keywords = (strKwd + ' ' + name)
+  let keywords = (strKwd + ' ' + name + ' ' + section)
     .split(/[,:\s|-]/)
     .map(cleanTag)
     .filter(filterTag);
   keywords = keywords.filter((k) => !ignoreKeywords.includes(k));
+  let aliases = aliasKeywords.filter((a) => _.intersection(a, keywords).length);
+  keywords = keywords.concat(...aliases);
   keywords = _.uniq(keywords);
   let item = byName[name];
   item.tags = tags;
@@ -145,9 +274,14 @@ for (let row of rows) {
 }
 document = null;
 rows = null;
-// console.log(allKeywords);
+// console.log(_.keys(byKeyword));
 
 console.log('write JSON files');
+
+fs.writeFileSync(
+  __dirname + '/../keywords.json',
+  JSON.stringify(_.keys(byKeyword).sort(), null, 2)
+);
 
 fs.writeFileSync(
   __dirname + '/../emoji-by-text.json',
@@ -176,7 +310,11 @@ fs.writeFileSync(
 );
 fs.writeFileSync(
   __dirname + '/../emoji-by-category.index.json',
-  JSON.stringify(_.mapValues(byCategory, (l) => _.map(l, 'text')), null, 2)
+  JSON.stringify(
+    _.mapValues(byCategory, (l) => _.map(l, 'text')),
+    null,
+    2
+  )
 );
 fs.writeFileSync(
   __dirname + '/../emoji-by-section.json',
@@ -184,7 +322,11 @@ fs.writeFileSync(
 );
 fs.writeFileSync(
   __dirname + '/../emoji-by-section.index.json',
-  JSON.stringify(_.mapValues(bySection, (l) => _.map(l, 'text')), null, 2)
+  JSON.stringify(
+    _.mapValues(bySection, (l) => _.map(l, 'text')),
+    null,
+    2
+  )
 );
 fs.writeFileSync(
   __dirname + '/../emoji-by-vendor.json',
@@ -192,7 +334,11 @@ fs.writeFileSync(
 );
 fs.writeFileSync(
   __dirname + '/../emoji-by-vendor.index.json',
-  JSON.stringify(_.mapValues(byVendor, (l) => _.map(l, 'text')), null, 2)
+  JSON.stringify(
+    _.mapValues(byVendor, (l) => _.map(l, 'text')),
+    null,
+    2
+  )
 );
 fs.writeFileSync(
   __dirname + '/../emoji-by-tag.json',
@@ -200,7 +346,11 @@ fs.writeFileSync(
 );
 fs.writeFileSync(
   __dirname + '/../emoji-by-tag.index.json',
-  JSON.stringify(_.mapValues(byTag, (l) => _.map(l, 'text')), null, 2)
+  JSON.stringify(
+    _.mapValues(byTag, (l) => _.map(l, 'text')),
+    null,
+    2
+  )
 );
 fs.writeFileSync(
   __dirname + '/../emoji-by-keyword.json',
@@ -208,7 +358,11 @@ fs.writeFileSync(
 );
 fs.writeFileSync(
   __dirname + '/../emoji-by-keyword.index.json',
-  JSON.stringify(_.mapValues(byKeyword, (l) => _.map(l, 'text')), null, 2)
+  JSON.stringify(
+    _.mapValues(byKeyword, (l) => _.map(l, 'text')),
+    null,
+    2
+  )
 );
 
 fs.writeFileSync(
@@ -274,19 +428,6 @@ fs.writeFileSync(
 );
 
 console.log('done');
-
-function cleanTag(tag) {
-  tag = tag.toLowerCase();
-  if (_.startsWith(tag, 'class=')) {
-    tag = tag.split(/></)[1];
-  }
-  tag = _.trim(tag, '\'"“”()!');
-  tag = tag.replace('</span>', '');
-  if (tag == 'hugging') tag = 'hug';
-  if (tag == 'clapping') tag = 'clap';
-  if (tag == 'flexed') tag = 'flex';
-  return tag;
-}
 
 function filterTag(tag) {
   return tag != '';
