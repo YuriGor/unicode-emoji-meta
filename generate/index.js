@@ -2,6 +2,7 @@
 
 const fs = require('fs');
 const _ = require('lodash');
+const notTg = require('./not-telegram.json');
 const { JSDOM } = require('jsdom');
 
 const ignoreKeywords = [
@@ -189,6 +190,7 @@ for (let row of rows) {
     }
     name = row.children[14].innerHTML;
   }
+  vendors['Tlgr'] = !notTg[name];
   if (_.startsWith(name, '⊛')) {
     recentlyAdded = true;
     name = name.substring(2);
