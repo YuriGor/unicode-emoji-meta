@@ -60,8 +60,8 @@ Where {field}:
 ### To update
 
 ```
-git clone https://github.com/YuriGor/emoji-json.git
-cd emoji-json
+git clone https://github.com/YuriGor/unicode-emoji-meta
+cd unicode-emoji-meta
 npm install
 npm run fetch
 npm run generate
